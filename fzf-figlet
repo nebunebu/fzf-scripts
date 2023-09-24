@@ -1,0 +1,16 @@
+#!/bin/sh
+
+TEXT="${1}"
+
+FONTS=$(echo -e "$(find /usr/share/figlet/ -name '*.tlf')\n$(find /usr/share/figlet/ -name '*.flf')")
+
+SELECTED=$(\
+	echo -e "$FONTS" |\
+	sed 's/\/usr\/share\/figlet\///' |\
+	sed 's/.tlf//' |\
+	sed 's/fonts\///' |\
+	sed 's/.flf//' |\
+	fzf --preview-window top --preview "toilet -f {} \"${TEXT}\" 2>/dev/null || figlet -f {} \"${TEXT}\"" \
+)
+
+toilet -f "$SELECTED" "$TEXT" 2>/dev/null || figlet -f "$SELECTED"  "$TEXT"
