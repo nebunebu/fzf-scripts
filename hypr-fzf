@@ -1,0 +1,6 @@
+#!/bin/env bash
+
+HYPR_WIKI="${HOME}/Projects/hyprland-wiki/pages"
+
+cd "$HYPR_WIKI"
+fzf --preview-window top --preview "rg {}"
